@@ -1,0 +1,29 @@
+Primeira execução original — trechos registrados no PowerShell
+
+Comando digitado inicialmente:
+PS> docker compose -d --build
+Saída:
+unknown shorthand flag: 'd' in -d
+
+Comando corrigido:
+PS> docker compose up -d --build
+Resultado: imagens construídas e containers turma-b-api-1 e turma-b-portal-1 criados.
+
+Saída de docker compose ps (antes da correção):
+api: Up; porta interna exibida como 3000/tcp
+portal: Up; 127.0.0.1:8081->80/tcp
+
+Log da API:
+{"evento":"inicio","porta":3001}
+
+Configuração ativa original do Nginx:
+set $destino http://127.0.0.1:3000;
+
+Teste HTTP do portal:
+curl.exe -i http://localhost:8081
+HTTP/1.1 200 OK
+O portal retornou o HTML da página.
+
+Observação: o navegador foi testado também com https://localhost:8081 e mostrou ERR_SSL_PROTOCOL_ERROR. O portal atende por HTTP; esse erro de protocolo não era a falha de encaminhamento à API.
+
+Estes são trechos do resultado colado no chat; a captura original do PowerShell ainda deve ser adicionada separadamente se o formulário exigir imagem dessa primeira execução.
