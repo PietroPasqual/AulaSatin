@@ -1,0 +1,19 @@
+services:
+  api:
+    build: ./api
+    environment:
+      PORT: "3001"
+    volumes:
+      - ./dados:/app/dados:ro
+      - ./registros:/app/registros
+    expose:
+      - "3001"
+
+  portal:
+    build: ./portal
+    ports:
+      - "127.0.0.1:8081:80"
+    environment:
+      API_URL: "http://api:3001"
+    depends_on:
+      - api
